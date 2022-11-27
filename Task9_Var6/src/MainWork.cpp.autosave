@@ -65,8 +65,8 @@ void MainWork::MethodStep(int P)
 	}
 	else
 	{
-                const double u = TrueFunc(x);
 		const double x = grid.back() + h;
+
         if (s < eps / 32 && ctrl_local_err && P!=1)
 		{
 			h *= 2;

@@ -7,10 +7,9 @@
 class MainWork
 {
 public:
-
-
     std::vector<double> grid;
     std::vector<double> grid_step;
+    std::vector<double> true_values;
     std::vector<double> num_values;
     std::vector<double> d_num_values;
     std::vector<double> final_num_values;
@@ -32,6 +31,7 @@ public:
 	double Func(double x, double u);
 	double NumFunc(double x, double v, double h);
 	double DNumFunc(double x, double v, double h);
+    double TrueFunc(double x);
     void MethodStep(int P);
 	void Run();
     //void Run1();

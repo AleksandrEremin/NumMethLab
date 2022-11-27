@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
+    <width>1569</width>
     <height>702</height>
    </rect>
   </property>
@@ -140,7 +140,7 @@
      <rect>
       <x>360</x>
       <y>10</y>
-      <width>681</width>
+      <width>1201</width>
       <height>671</height>
      </rect>
     </property>
@@ -149,22 +149,40 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QCustomPlot" name="graph" native="true"/>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QCustomPlot" name="graph" native="true"/>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="graphTestTrue" native="true"/>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="QTableWidget" name="tableWidgetMain1">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>225</height>
+         <height>250</height>
         </size>
        </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
        <property name="columnCount">
-        <number>8</number>
+        <number>10</number>
        </property>
+       <attribute name="verticalHeaderCascadingSectionResizes">
+        <bool>false</bool>
+       </attribute>
+       <column/>
+       <column/>
        <column/>
        <column/>
        <column/>

@@ -7,10 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->tableWidgetMain1->setHorizontalHeaderLabels(QStringList() << "Xi" << "Vi" << "V2i" << "Vi - V2i" << "ОЛП" << "Hi" << "C1" << "C2");
+    ui->tableWidgetMain1->setHorizontalHeaderLabels(QStringList() << "Xi" << "Vi" << "V2i" << "Vi - V2i" << "ОЛП" << "Hi" << "C1" << "C2" << "Ui" << "|Ui - Vi|");
     ui->tableWidgetMain1->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->graph->xAxis->setLabel("x");
     ui->graph->yAxis->setLabel("Сила тока I");
+    ui->graphTestTrue->xAxis->setLabel("Истинная траектория");
+    ui->graph->xAxis->setLabel("Численная траектория");
 
 }
 
@@ -43,19 +45,25 @@ void MainWindow::on_pushButtonMainRun_clicked()
     Prog.Run();
     QVector<double> x(Prog.grid.begin(), Prog.grid.end());
     QVector<double> y(Prog.final_num_values.begin(), Prog.final_num_values.end());
+    QVector<double> y_true = QVector<double>(Prog.true_values.begin(), Prog.true_values.end());
 
     ui->graph->addGraph();
     ui->graph->graph(0)->setData(x, y);
     ui->graph->graph(0)->rescaleAxes();
     ui->graph->replot();
 
+    ui->graphTestTrue->addGraph();
+    ui->graphTestTrue->graph(0)->setData(x, y_true);
+    ui->graphTestTrue->rescaleAxes();
+    ui->graphTestTrue->replot();
+
     Prog.grid_step.pop_back();
     Prog.grid_step.insert(Prog.grid_step.begin(), initial_step);
     ui->tableWidgetMain1->clearContents();
     ui->tableWidgetMain1->setRowCount(0);
 
-    double maxOLP = 0;
-    int indMaxStep = 0, indMinStep = 0;
+    double maxOLP = 0, maxTrueDiff = 0;
+    int indMaxStep = 0, indMinStep = 0,indMaxTrueDiff = 0;
     for (int i = 0; i < Prog.grid.size(); i++)
     {
         QTableWidgetItem *x = new QTableWidgetItem(QString::number(Prog.grid[i]));
@@ -76,6 +84,14 @@ void MainWindow::on_pushButtonMainRun_clicked()
         int tmp5 = i > 1 ? Prog.mult2[i-1] - Prog.mult2[i-2] : 0;
         QTableWidgetItem *c1 = new QTableWidgetItem(QString::number(tmp4));
         QTableWidgetItem *c2 = new QTableWidgetItem(QString::number(tmp5));
+        QTableWidgetItem *u = new QTableWidgetItem(QString::number(Prog.true_values[i]));
+        double tmp3 = std::abs(Prog.true_values[i] - Prog.final_num_values[i]);
+        if (tmp3 > maxTrueDiff)
+        {
+            maxTrueDiff = tmp3;
+            indMaxTrueDiff = i;
+        }
+        QTableWidgetItem *true_diff = new QTableWidgetItem(QString::number(tmp3));
         ui->tableWidgetMain1->insertRow(i);
         ui->tableWidgetMain1->setVerticalHeaderItem(i, new QTableWidgetItem(QString::number(i)));
         ui->tableWidgetMain1->setItem(i, 0, x);
@@ -86,6 +102,8 @@ void MainWindow::on_pushButtonMainRun_clicked()
         ui->tableWidgetMain1->setItem(i, 5, h);
         ui->tableWidgetMain1->setItem(i, 6, c1);
         ui->tableWidgetMain1->setItem(i, 7, c2);
+        ui->tableWidgetMain1->setItem(i, 8, u);
+        ui->tableWidgetMain1->setItem(i, 9, true_diff);
     }
 
     /*QString ref = "Число шагов метода: "  + QString::number(Prog.grid.size()-1) + "\nb - xN = " +  QString::number(Prog.right_border - Prog.grid.back())
