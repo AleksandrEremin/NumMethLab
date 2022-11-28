@@ -30,10 +30,9 @@ double MainWork::Func(double x, double I)
 
 double MainWork::TrueFunc(double x)
 {
-    //qDebug()<<"true_values.front(): "<<true_values.front();
     return (((R*E0*sin(omega*x))/((L*L)*(omega*omega)+(R*R))) -
-            ((L*E0*omega*cos(omega*x))/((L*L)*(omega*omega)+(R*R))) +
-            ((true_values.front()*exp(-(R*x)/L))));
+    ((L*E0*omega*cos(omega*x))/((L*L)*(omega*omega)+(R*R))) +
+    (((true_values.front() + (L * E0 * omega) / ((L * L) * (omega * omega) + (R * R))) * exp(-(R*x)/L))));
 }
 
 double MainWork::NumFunc(double x, double v, double h)
@@ -64,9 +63,9 @@ void MainWork::MethodStep(int P)
         n--;
 	}
 	else
-	{
-                const double u = TrueFunc(x);
+    {
 		const double x = grid.back() + h;
+        const double u = TrueFunc(x);
         if (s < eps / 32 && ctrl_local_err && P!=1)
 		{
 			h *= 2;
