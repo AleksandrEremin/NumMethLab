@@ -49,6 +49,7 @@ double MainWork::DNumFunc(double x, double v, double h)
 	const double v_tmp = NumFunc(x, v, h / 2);
 	return NumFunc(x + h / 2, v_tmp, h / 2);
 }
+
 void MainWork::MethodStep(int P)
 {
 	double h = grid_step.back();
@@ -93,82 +94,17 @@ void MainWork::Run()
         MethodStep(0);
     }
 
-   // qDebug() << "n:" << n <<"grid.size(): "<<grid.size()<<" grid.back() + grid_step.back():"<<grid.back() + grid_step.back();
-           // qDebug()<<" grid.back(): "<< grid.back()<< " grid_step.back(): "<< grid_step.back();
-  // qDebug()<<"eps: "<< eps;
-    if (right_border - grid.back() > eps && grid.back() + grid_step.back() > right_border )
+
+    if (right_border - grid.back() > 1e-8 && grid.back() + grid_step.back() > right_border )
     {
-        //qDebug()<<"Зашел;";
-        //qDebug()<<"right_border - grid.back() "<<right_border - grid.back();
+
         grid_step.back() = right_border - grid.back();
         MethodStep(1);
-        //qDebug() << "n:" << n;
-    }
-   // qDebug() << "right_border: "<< right_border<<" grid.back(): " << grid.back();
-    //qDebug() << "right_border - grid.back():" << right_border - grid.back();
-}
-
-
-
-/*void MainWork::Run2()
-{
-    int i = 0;
-    while (grid.back() + grid_step.back() <= right_border && n < max_steps)
-    {
-        n++;
-        i++;
-        MethodStep();
-    }
-    qDebug()<<"n: "<<n;
-    qDebug() <<"grid.back(): "<<grid.back()<< " grid_step.back(): "<<  grid_step.back()<< " right_border: "<<right_border<<"max_steps: "<<max_steps;
-     std::vector<double> gridTMP(grid);
-    while(ctrl_local_err && gridTMP.back() + grid_step.back() > right_border && right_border - gridTMP.back()> eps)
-    {
-       // qDebug() <<"grid.back(): "<<grid.back()<< " grid_step.back(): "<<  grid_step.back()<< " right_border: ";
-        grid_step.back()/=2;
-        div++;
-        qDebug()<<" grid.back() + grid_step.back(): "<<grid.back() + grid_step.back()<<"right_border:"<<right_border;
-
-        if((gridTMP.back() + grid_step.back())<right_border||(gridTMP.back() + grid_step.back())-right_border<=eps)
-        {
-            qDebug()<<"Зашел;";
-            gridTMP.push_back(grid.back() + grid_step.back());
-        }
-    }
-    if(ctrl_local_err  &&  right_border - grid.back()>= eps && grid.back() + grid_step.back() <= right_border && n < max_steps)
-    {
-        MethodStep();
-    }
-
-   qDebug() << "right_border: "<< right_border<<" grid.back(): " << grid.back();
-   qDebug() << "right_border - grid.back():" << right_border - grid.back();
-}
-
-void MainWork::Run1()
-{
-    int i = 0;
-    while (grid.back() + grid_step.back() <= right_border && n < max_steps)
-    {
-        n++;
-        i++;
-        MethodStep();
-        //qDebug()<<"n: "<<n;
-        //qDebug() <<"grid.back(): "<<grid.back()<< " grid_step.back(): "<<  grid_step.back()<< " right_border: "<<right_border<<"max_steps: "<<max_steps;
-    }
-    qDebug()<<"n: "<<n;
-    qDebug() <<"grid.back(): "<<grid.back()<< " grid_step.back(): "<<  grid_step.back()<< " right_border: "<<right_border<<"max_steps: "<<max_steps;
-    while(ctrl_local_err && grid.back() + grid_step.back() > right_border && right_border - grid.back()> eps)
-    {
-        grid_step.back()/=2;
-        div++;
-    }
-    if(ctrl_local_err  &&  right_border - grid.back()>= eps && grid.back() + grid_step.back() <= right_border && n < max_steps)
-    {
-        MethodStep();
     }
    qDebug() << "right_border: "<< right_border<<" grid.back(): " << grid.back();
-   qDebug() << "right_border - grid.back():" << right_border - grid.back();
-}*/
+    qDebug() << "right_border - grid.back():" << right_border - grid.back();
+}
+
 
 void MainWork::Print()
 {
