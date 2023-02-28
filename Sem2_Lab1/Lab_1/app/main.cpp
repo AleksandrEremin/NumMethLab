@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("Команда №3, задача 9, вариант 6. Отвечает - Еремин АН.");
+    w.setWindowTitle("Лабораторна работа №1");
     w.show();
     return a.exec();
 }
