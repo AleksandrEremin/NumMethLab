@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\kento\source\repos\oleg-w570\NumericalMethods\NumMethLab3\build\CMakeFiles\6fa91346bb0f16cbef74acf6fd4abe4d\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F825D828-A28A-35C1-A1E3-D6A0E51210DD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

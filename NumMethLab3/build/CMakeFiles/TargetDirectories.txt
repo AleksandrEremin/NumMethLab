@@ -1,0 +1,4 @@
+C:/Users/kento/source/repos/oleg-w570/NumericalMethods/NumMethLab3/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/kento/source/repos/oleg-w570/NumericalMethods/NumMethLab3/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/kento/source/repos/oleg-w570/NumericalMethods/NumMethLab3/build/src/CMakeFiles/lib.dir
+C:/Users/kento/source/repos/oleg-w570/NumericalMethods/NumMethLab3/build/sample/CMakeFiles/sample.dir
